@@ -1,0 +1,21 @@
+> b = read.csv("Group_87.csv")
+> plot(b$Y, b$X)
+> fit1 = lm(X ~ log(Y), data = b)
+> fit2 = lm(X ~ factor(Y), data = b)
+> aovB = aov(X ~ log(Y), data = b)
+> anova(fit1, fit2)
+Analysis of Variance Table
+
+Model 1: X ~ log(Y)
+Model 2: X ~ factor(Y)
+  Res.Df     RSS   Df Sum of Sq F Pr(>F)
+1   1998 1707220                        
+2      0       0 1998   1707220         
+> summary(aovB)
+              Df  Sum Sq Mean Sq F value Pr(>F)
+log(Y)         1      13    13.0   0.015  0.902
+Residuals   1998 1707220   854.5               
+> confint(fit1, level = 0.99)
+                 0.5 %    99.5 %
+(Intercept) -85.391835 77.349068
+log(Y)       -6.594694  7.256756

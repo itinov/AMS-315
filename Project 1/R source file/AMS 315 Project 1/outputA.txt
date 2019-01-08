@@ -1,0 +1,38 @@
+> x = read.csv("Group_87 DV.csv", header = T, na.string = "NA")
+> y = read.csv("Group_87 IV.csv", header = T, na.string = "NA")
+> M = merge(x, y, by = "ID")
+> M = na.omit(M)
+> fitM = lm(formula = M$Y ~ M$X)
+> summary(fitM)
+
+Call:
+lm(formula = M$Y ~ M$X)
+
+Residuals:
+   Min     1Q Median     3Q    Max 
+-92121 -21034   -154  20695  97070 
+
+Coefficients:
+              Estimate Std. Error t value Pr(>|t|)    
+(Intercept)  9.994e+05  7.119e+02 1403.77   <2e-16 ***
+M$X         -3.883e+01  4.913e-01  -79.03   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 30680 on 1857 degrees of freedom
+Multiple R-squared:  0.7708,	Adjusted R-squared:  0.7707 
+F-statistic:  6246 on 1 and 1857 DF,  p-value: < 2.2e-16
+
+> anova(fitM)
+Analysis of Variance Table
+
+Response: M$Y
+            Df     Sum Sq    Mean Sq F value    Pr(>F)    
+M$X          1 5.8800e+12 5.8800e+12  6246.4 < 2.2e-16 ***
+Residuals 1857 1.7481e+12 9.4133e+08                      
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+> confint(fitM, level = 0.99)
+                   0.5 %        99.5 %
+(Intercept) 997563.54010 1001234.98173
+M$X            -40.09369     -37.56025
